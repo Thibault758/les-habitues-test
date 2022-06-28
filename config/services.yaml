@@ -4,6 +4,8 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    les_habitues_api_url: "%env(LES_HABITUES_API_URL)%"
+    les_habitues_api_shop_endpoint: "%env(LES_HABITUES_API_SHOP_ENDPOINT)%"
 
 services:
     # default configuration for services in *this* file
@@ -19,6 +21,15 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+
+    App\Service\Shop\Import\ImportShopFromLesHabituesApiService:
+        arguments:
+            $lesHabituesApiUrl: '%les_habitues_api_url%'
+            $lesHabituesApiShopEndpoint: '%les_habitues_api_shop_endpoint%'
+
+    App\Command\ImportShopFromLesHabituesApiCommand:
+        arguments:
+            $importShopFromLesHabituesApiService: '@App\Service\Shop\Import\ImportShopFromLesHabituesApiService'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
