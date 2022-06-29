@@ -110,4 +110,25 @@ class ShopController extends AbstractController
 			);
 		}
 	}
+
+	/**
+	 * @Route("/shop/{shop}", name="shop_delete", methods={"DELETE"})
+	 */
+	public function deleteShop(Shop $shop): JsonResponse
+	{
+		try {
+			$this->shopRepository->remove($shop, $flush = true);
+			return new JsonResponse(
+				'Ressource removed',
+				JsonResponse::HTTP_OK,
+				[],
+				true
+			);
+		} catch(\Exception $e) {
+			return new JsonResponse(
+				$e->getMessage(),
+				JsonResponse::HTTP_NOT_FOUND,
+			);
+		}
+	}
 }
