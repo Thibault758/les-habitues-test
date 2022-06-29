@@ -64,25 +64,29 @@ class ShopController extends AbstractController
 	 */
 	public function createShop(Request $request): JsonResponse
 	{
-		$payload = $request->getContent();
-		if (empty($payload)) {
+		try {
+			$payload = $request->getContent();
+			if (empty($payload)) {
+				Throw new \Exception('Error: Empty JSON payload');
+			}
+
+			$newShop = $this->serializer->deserialize($request->getContent(), Shop::class, 'json');
+
+			$this->shopRepository->add($newShop, $flush = true);
+
+			$jsonData = $this->serializer->serialize($newShop, 'json', ['groups' => ['list_shop']]);
+
 			return new JsonResponse(
-				'Error: Empty JSON payload',
+				$jsonData,
+				JsonResponse::HTTP_CREATED,
+				[],
+				true
+			);
+		} catch (\Exception $e) {
+			return new JsonResponse(
+				$e->getMessage(),
 				JsonResponse::HTTP_NOT_FOUND,
 			);
 		}
-
-		$newShop = $this->serializer->deserialize($request->getContent(), Shop::class, 'json');
-
-		$this->shopRepository->add($newShop, $flush = true);
-
-		$jsonData = $this->serializer->serialize($newShop, 'json', ['groups' => ['list_shop']]);
-
-		return new JsonResponse(
-			$jsonData,
-			JsonResponse::HTTP_CREATED,
-			[],
-			true
-		);
 	}
 }
