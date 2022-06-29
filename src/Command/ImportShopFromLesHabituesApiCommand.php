@@ -18,9 +18,9 @@ class ImportShopFromLesHabituesApiCommand extends Command
     protected $importShopFromLesHabituesApiService;
 
     public function __construct(
-    	string $name = null,
-		ImportShopFromApi $importShopFromLesHabituesApiService
-	){
+		ImportShopFromApi $importShopFromLesHabituesApiService,
+		string $name = null
+	) {
 		parent::__construct($name);
 		$this->importShopFromLesHabituesApiService = $importShopFromLesHabituesApiService;
 	}
