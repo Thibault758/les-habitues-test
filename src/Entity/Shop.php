@@ -112,22 +112,22 @@ class Shop
 	private $geographicCoordinate;
 
     /**
-     * @ORM\OneToMany(targetEntity=Localisation::class, mappedBy="shop", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Localisation::class, mappedBy="shop", orphanRemoval=true, cascade={"persist"})
      */
     private $localisations;
 
     /**
-     * @ORM\OneToMany(targetEntity=LocalisationPrepayment::class, mappedBy="shop", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=LocalisationPrepayment::class, mappedBy="shop", orphanRemoval=true, cascade={"persist"})
      */
     private $localisationPrepayments;
 
     /**
-     * @ORM\OneToMany(targetEntity=Tag::class, mappedBy="shop", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Tag::class, mappedBy="shop", orphanRemoval=true, cascade={"persist"})
      */
     private $tags;
 
     /**
-     * @ORM\OneToMany(targetEntity=Offer::class, mappedBy="shop", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Offer::class, mappedBy="shop", orphanRemoval=true, cascade={"persist"})
      */
     private $offers;
 
