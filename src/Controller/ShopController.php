@@ -14,14 +14,25 @@ use Symfony\Component\Serializer\SerializerInterface;
  */
 class ShopController extends AbstractController
 {
+	protected $shopRepository;
+	protected $serializer;
+
+	public function __construct(
+		ShopRepository $shopRepository,
+		SerializerInterface $serializer
+	){
+		$this->shopRepository = $shopRepository;
+		$this->serializer = $serializer;
+	}
+
     /**
      * @Route("/shops", name="shop_list", methods={"GET"})
      */
-    public function index(ShopRepository $shopRepository, SerializerInterface $serializer): JsonResponse
-    {
-    	$shops = $shopRepository->findAll();
+    public function index(): JsonResponse
+	{
+    	$shops = $this->shopRepository->findAll();
 
-		$jsonData = $serializer->serialize($shops, 'json', ['groups' => ['list_shop']]);
+		$jsonData = $this->serializer->serialize($shops, 'json', ['groups' => ['list_shop']]);
 
 		return new JsonResponse(
 			$jsonData,
