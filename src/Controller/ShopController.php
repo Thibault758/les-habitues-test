@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Shop;
 use App\Repository\ShopRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -28,7 +29,7 @@ class ShopController extends AbstractController
     /**
      * @Route("/shops", name="shop_list", methods={"GET"})
      */
-    public function list(): JsonResponse
+    public function listShops(): JsonResponse
 	{
     	$shops = $this->shopRepository->findAll();
 
@@ -41,4 +42,19 @@ class ShopController extends AbstractController
 			true
 		);
     }
+
+	/**
+	 * @Route("/shop/{shop}", name="shop_get", methods={"GET"})
+	 */
+	public function getShop(Shop $shop): JsonResponse
+	{
+		$jsonData = $this->serializer->serialize($shop, 'json', ['groups' => ['list_shop']]);
+
+		return new JsonResponse(
+			$jsonData,
+			JsonResponse::HTTP_OK,
+			[],
+			true
+		);
+	}
 }
