@@ -33,9 +33,7 @@ class ShopController extends AbstractController
     public function listShops(): JsonResponse
 	{
     	$shops = $this->shopRepository->findAll();
-
 		$jsonData = $this->serializer->serialize($shops, 'json', ['groups' => ['list_shop']]);
-
 		return new JsonResponse(
 			$jsonData,
 			JsonResponse::HTTP_OK,
@@ -50,7 +48,6 @@ class ShopController extends AbstractController
 	public function getShop(Shop $shop): JsonResponse
 	{
 		$jsonData = $this->serializer->serialize($shop, 'json', ['groups' => ['list_shop']]);
-
 		return new JsonResponse(
 			$jsonData,
 			JsonResponse::HTTP_OK,
@@ -69,13 +66,9 @@ class ShopController extends AbstractController
 			if (empty($payload)) {
 				Throw new \Exception('Error: Empty JSON payload');
 			}
-
 			$newShop = $this->serializer->deserialize($request->getContent(), Shop::class, 'json');
-
 			$this->shopRepository->add($newShop, $flush = true);
-
 			$jsonData = $this->serializer->serialize($newShop, 'json', ['groups' => ['list_shop']]);
-
 			return new JsonResponse(
 				$jsonData,
 				JsonResponse::HTTP_CREATED,
@@ -83,6 +76,34 @@ class ShopController extends AbstractController
 				true
 			);
 		} catch (\Exception $e) {
+			return new JsonResponse(
+				$e->getMessage(),
+				JsonResponse::HTTP_NOT_FOUND,
+			);
+		}
+	}
+
+	/**
+	 * @Route("/shop/{shop}", name="shop_update", methods={"PATCH"})
+	 */
+	public function updateShop(Request $request, Shop $shop): JsonResponse
+	{
+		try {
+			$payload = $request->getContent();
+			if (empty($payload)) {
+				Throw new \Exception('Error: Empty JSON payload');
+			}
+			$this->serializer->deserialize($payload, Shop::class, 'json', array('object_to_populate' => $shop));
+			$this->shopRepository->add($shop, $flush = true);
+			$jsonData = $this->serializer->serialize($shop, 'json', ['groups' => ['list_shop']]);
+			return new JsonResponse(
+				$jsonData,
+				JsonResponse::HTTP_OK,
+				[],
+				true
+			);
+
+		} catch(\Exception $e) {
 			return new JsonResponse(
 				$e->getMessage(),
 				JsonResponse::HTTP_NOT_FOUND,
