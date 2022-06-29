@@ -28,7 +28,7 @@ class ShopController extends AbstractController
     /**
      * @Route("/shops", name="shop_list", methods={"GET"})
      */
-    public function index(): JsonResponse
+    public function list(): JsonResponse
 	{
     	$shops = $this->shopRepository->findAll();
 
