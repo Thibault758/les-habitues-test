@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\OfferRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=OfferRepository::class)
@@ -15,16 +16,19 @@ class Offer
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+	 * @Groups({"list_shop"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+	 * @Groups({"list_shop"})
      */
     private $amount;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+	 * @Groups({"list_shop"})
      */
     private $reduction;
 

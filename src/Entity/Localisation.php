@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\LocalisationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=LocalisationRepository::class)
@@ -15,36 +16,43 @@ class Localisation
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+	 * @Groups({"list_shop"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+	 * @Groups({"list_shop"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+	 * @Groups({"list_shop"})
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=20, nullable=true)
+	 * @Groups({"list_shop"})
      */
     private $zipcode;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+	 * @Groups({"list_shop"})
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+	 * @Groups({"list_shop"})
      */
     private $slug;
 
     /**
      * @ORM\Column(type="boolean")
+	 * @Groups({"list_shop"})
      */
     private $team = false;
 
@@ -56,6 +64,7 @@ class Localisation
 
 	/**
 	 * @ORM\Embedded(class="GeographicCoordinate")
+	 * @Groups({"list_shop"})
 	 * @var GeographicCoordinate
 	 */
 	private $geographicCoordinate;

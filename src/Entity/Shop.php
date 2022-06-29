@@ -6,6 +6,7 @@ use App\Repository\ShopRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ShopRepository::class)
@@ -17,117 +18,140 @@ class Shop
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+	 * @Groups({"list_shop"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer")
+	 * @Groups({"list_shop"})
      */
     private $id_api;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+	 * @Groups({"list_shop"})
      */
     private $chain;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+	 * @Groups({"list_shop"})
      */
     private $category;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+	 * @Groups({"list_shop"})
      */
     private $category_id;
 
     /**
      * @ORM\Column(type="boolean")
+	 * @Groups({"list_shop"})
      */
     private $ecommerce_prepayment = false;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+	 * @Groups({"list_shop"})
      */
     private $total_supplier_users;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+	 * @Groups({"list_shop"})
      */
     private $total_offers;
 
     /**
      * @ORM\Column(type="boolean")
+	 * @Groups({"list_shop"})
      */
     private $publication = false;
 
     /**
      * @ORM\Column(type="datetime")
+	 * @Groups({"list_shop"})
      */
     private $created_at;
 
     /**
      * @ORM\Column(type="datetime")
+	 * @Groups({"list_shop"})
      */
     private $updated_at;
 
     /**
      * @ORM\Column(type="boolean")
+	 * @Groups({"list_shop"})
      */
     private $active = false;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+	 * @Groups({"list_shop"})
      */
     private $slug;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+	 * @Groups({"list_shop"})
      */
     private $wallets_total;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+	 * @Groups({"list_shop"})
      */
     private $picture_url;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+	 * @Groups({"list_shop"})
      */
     private $wallets_last_month;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+	 * @Groups({"list_shop"})
      */
     private $pipedrive_deal_id;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+	 * @Groups({"list_shop"})
      */
     private $pipedrive_org_id;
 
 	/**
 	 * @ORM\Embedded(class="GeographicCoordinate")
+	 * @Groups({"list_shop"})
 	 * @var GeographicCoordinate
 	 */
 	private $geographicCoordinate;
 
     /**
      * @ORM\OneToMany(targetEntity=Localisation::class, mappedBy="shop", orphanRemoval=true, cascade={"persist"})
+	 * @Groups({"list_shop"})
      */
     private $localisations;
 
     /**
      * @ORM\OneToMany(targetEntity=LocalisationPrepayment::class, mappedBy="shop", orphanRemoval=true, cascade={"persist"})
+	 * @Groups({"list_shop"})
      */
     private $localisationPrepayments;
 
     /**
      * @ORM\OneToMany(targetEntity=Tag::class, mappedBy="shop", orphanRemoval=true, cascade={"persist"})
+	 * @Groups({"list_shop"})
      */
     private $tags;
 
     /**
      * @ORM\OneToMany(targetEntity=Offer::class, mappedBy="shop", orphanRemoval=true, cascade={"persist"})
+	 * @Groups({"list_shop"})
      */
     private $offers;
 
