@@ -84,7 +84,7 @@ class ShopController extends AbstractController
 	}
 
 	/**
-	 * @Route("/shop/{shop}", name="shop_update", methods={"PATCH"})
+	 * @Route("/shop/{shop}", name="shop_update", methods={"PUT"})
 	 */
 	public function updateShop(Request $request, Shop $shop): JsonResponse
 	{
