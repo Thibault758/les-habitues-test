@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ShopRepository::class)
@@ -134,6 +135,7 @@ class Shop
     /**
      * @ORM\OneToMany(targetEntity=Localisation::class, mappedBy="shop", orphanRemoval=true, cascade={"persist"})
 	 * @Groups({"list_shop"})
+	 * @Assert\Valid()
      */
     private $localisations;
 

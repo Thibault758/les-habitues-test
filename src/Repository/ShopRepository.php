@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Shop;
+use App\Validator\EntityValidator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,13 +17,20 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ShopRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
+	protected $validator;
+
+    public function __construct(
+    	ManagerRegistry $registry,
+		EntityValidator $validator
+	) {
         parent::__construct($registry, Shop::class);
+        $this->validator = $validator;
     }
 
     public function add(Shop $entity, bool $flush = false): void
     {
+    	$this->validator->validate($entity);
+
         $this->getEntityManager()->persist($entity);
 
         if ($flush) {

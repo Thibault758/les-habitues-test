@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\LocalisationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use App\Validator;
 
 /**
  * @ORM\Entity(repositoryClass=LocalisationRepository::class)
@@ -35,6 +36,7 @@ class Localisation
     /**
      * @ORM\Column(type="string", length=20, nullable=true)
 	 * @Groups({"list_shop"})
+	 * @Validator\ValidFrZipCode
      */
     private $zipcode;
 
